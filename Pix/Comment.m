@@ -11,4 +11,18 @@
 
 @implementation Comment
 
+- (instancetype) initWithDictionary: (NSDictionary *) commentDictionary {
+//    @property (nonatomic, strong) User *from;
+//    @property (nonatomic, strong) NSString *text;
+    self = [super init];
+    
+    if (self) {
+        self.idNumber = commentDictionary[@"id"];
+        self.text = commentDictionary[@"text"];
+        self.from = [[User alloc] initWithDictionary:commentDictionary[@"from"]];
+    }
+    
+    return self;
+}
+
 @end

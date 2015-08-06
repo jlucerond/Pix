@@ -26,8 +26,8 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     
     UIWebView *webView = [[UIWebView alloc] init];
     webView.delegate = self;
-    
-    [self.webView addSubview:webView];
+
+    [self.view addSubview:webView];
     self.webView = webView;
     
     self.title = NSLocalizedString(@"Login", @"This is a comment");

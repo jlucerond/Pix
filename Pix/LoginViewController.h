@@ -10,6 +10,6 @@
 
 @interface LoginViewController : UIViewController
 
-extern NSString *const loginViewControllerDidGetAccessTokenNotification;
+extern NSString *const LoginViewControllerDidGetAccessTokenNotification;
 
 @end
