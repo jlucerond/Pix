@@ -45,4 +45,40 @@
     return self;
 }
 
+#pragma mark - NSCoding
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    
+    if (self) {
+        self.idNumber = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(idNumber))];
+        self.user = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(user))];
+        self.mediaURL = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(mediaURL))];
+        self.image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
+//        if (self.image) {
+//            self.downloadState = MediaDownloadStateHasImage;
+//        }
+//        else if (self.mediaURL){
+//            self.downloadState = MediaDownloadStateNeedsImage;
+//        }
+//        else {
+//            self.downloadState = MediaDownloadStateNonRecoverableError;
+//        }
+        self.caption = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(caption))];
+        self.comments = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(comments))];
+//        self.likeState = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(likeState))];
+    }
+    
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.idNumber forKey:NSStringFromSelector(@selector(idNumber))];
+    [aCoder encodeObject:self.user forKey:NSStringFromSelector(@selector(user))];
+    [aCoder encodeObject:self.mediaURL forKey:NSStringFromSelector(@selector(mediaURL))];
+    [aCoder encodeObject:self.caption forKey:NSStringFromSelector(@selector(caption))];
+    [aCoder encodeObject:self.comments forKey:NSStringFromSelector(@selector(comments))];
+//    [aCoder encodeInteger:self.likeState forKey:NSStringFromSelector(@selector(likeState))];
+}
+
 @end
