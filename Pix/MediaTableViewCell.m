@@ -137,16 +137,6 @@ static NSParagraphStyle *paragraphStyle;
     return self;
 }
 
-- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:NO animated:animated];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:NO animated:animated];
-
-    // Configure the view for the selected state
-}
-
 - (void) layoutSubviews {
     [super layoutSubviews];
     
@@ -169,6 +159,18 @@ static NSParagraphStyle *paragraphStyle;
     
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
 }
+
+#pragma mark - TableView Cell Methods
+- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:animated];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:NO animated:animated];
+
+    // Configure the view for the selected state
+}
+
 
 #pragma mark - Custom Getters/Setters
 
