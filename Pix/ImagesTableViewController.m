@@ -41,7 +41,6 @@
     [[DataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -50,6 +49,12 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [MediaTableViewCell heightForMediaItem:[self items][indexPath.row] width:CGRectGetWidth(self.view.frame)];
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Media *item = [self items][indexPath.row];
+    if (item.image) return 350;
+    else return 150;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
