@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL isLoadingOlderItems;
 @property (nonatomic, assign) BOOL thereAreNoMoreOlderMessages;
 @property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, assign) BOOL isNotFirstTimeLoadingDataSource;
 
 @end
 
@@ -32,7 +33,6 @@
 - (void) deleteMediaItem:(Media *) item {
     NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
     [mutableArrayWithKVO removeObject:item];
-    self.mediaItems = mutableArrayWithKVO;
 }
 
 - (void) requestNewItemsWithCompletionHandler:(NewItemCompletionBlock)completionHandler {
@@ -125,6 +125,10 @@
                 });
             });
         }
+    }
+//  ISSUE- THIS BREAKS THE APP WHEN THERE'S NEW STUFF TO LOAD (BUT NOT WHEN THERE ISN'T)
+    if (!self.isNotFirstTimeLoadingDataSource){
+        [self requestNewItemsWithCompletionHandler:nil];
     }
     return self;
 }
