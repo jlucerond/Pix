@@ -36,6 +36,9 @@
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
     
     [self.tableView registerClass:[MediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
+    
+    UIBarButtonItem *shareMedia = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed)];
+    self.navigationItem.rightBarButtonItem = shareMedia;
 }
 
 - (void) dealloc {
@@ -107,6 +110,12 @@
 
 - (NSArray *) items {
     return [DataSource sharedInstance].mediaItems;
+}
+
+- (void) shareButtonPressed {
+    MediaTableViewCell *theCell = [[self.tableView visibleCells] firstObject];
+    [self cell:theCell didLongPressImageView:theCell.imageView];
+
 }
 
 #pragma mark - Editing the TableView

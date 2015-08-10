@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 
+@property (nonatomic, strong) UIBarButtonItem *shareButton;
+
 @end
 
 @implementation MediaFullScreenViewController
@@ -43,6 +45,7 @@
     [self.tap requireGestureRecognizerToFail:self.doubleTap];
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,7 +66,7 @@
     CGFloat minScale = MIN(scaleWidth, scaleHeight);
     
     self.scrollView.minimumZoomScale = minScale;
-    self.scrollView.maximumZoomScale = 1;
+    self.scrollView.maximumZoomScale = 1.5;
 }
 
 - (instancetype)initWithMedia: (Media *)media {
