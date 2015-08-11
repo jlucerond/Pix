@@ -57,8 +57,8 @@
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Media *item = [self items][indexPath.row];
-    if (item.image) return 350;
-    else return 150;
+    if (item.image) return 650;
+    else return 650;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,6 +67,13 @@
     cell.mediaItem = [self items][indexPath.row];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Media *mediaItem = [self items][indexPath.row];
+    if (mediaItem.downloadState == MediaDownloadStateNeedsImage){
+        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    }
 }
 
 #pragma mark - Key/Value Observing
