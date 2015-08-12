@@ -21,6 +21,7 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 +(NSString *) instagramClientID;
 - (void) deleteMediaItem:(Media *)item;
 - (void) downloadImageForMediaItem: (Media *)mediaItem;
+- (void) toggleLikeOnMediaItem:(Media *)mediaItem withCompletionHandler:(void (^)(void))completionHandler;
 - (void) requestNewItemsWithCompletionHandler: (NewItemCompletionBlock) completionHandler;
 - (void) requestOldItemsWithCompletionHandler: (NewItemCompletionBlock) completionHandler;
 

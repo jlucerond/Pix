@@ -10,6 +10,7 @@
 #import "Media.h"
 #import "Comment.h"
 #import "User.h"
+#import "LikeButton.h"
 
 @interface MediaTableViewCell ()
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) UILabel *commentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic, strong) LikeButton *likeButton;
+@property (nonatomic, strong) UILabel *numberOfLikesLabel;
 
 // Layout Constraints
 @property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
@@ -89,20 +92,41 @@ static NSParagraphStyle *paragraphStyle;
         self.commentLabel.numberOfLines = 0;
         self.commentLabel.backgroundColor = commentLabelGray;
         
-        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel]){
+        self.likeButton = [[LikeButton alloc] init];
+        [self.likeButton addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
+        self.likeButton.backgroundColor = usernameLabelGray;
+        
+        
+        // question for matt- how do I organize one view on top of the other?
+        self.numberOfLikesLabel = [[UILabel alloc] init];
+        self.numberOfLikesLabel.text = @"hi";
+        self.numberOfLikesLabel.numberOfLines = 0;
+        self.numberOfLikesLabel.font = boldFont;
+        self.numberOfLikesLabel.backgroundColor = usernameLabelGray;
+        self.numberOfLikesLabel.textColor = linkColor;
+        [self.numberOfLikesLabel sizeToFit];
+        
+//        UIView *comboView = [[UIView alloc] init];
+//        comboView.backgroundColor = usernameLabelGray;
+//        [comboView addSubview:self.likeButton];
+//        [comboView addSubview:self.numberOfLikesLabel];
+//        [comboView sizeToFit];
+//        
+        
+        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeButton]){
             [self.contentView addSubview:view];
             view.translatesAutoresizingMaskIntoConstraints = NO;
         }
         
-        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel);
+        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton, _numberOfLikesLabel);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
-        
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel]|"
-                                                                                 options:kNilOptions
+
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_likeButton(==38)]|"
+                                                                                 options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
         
@@ -110,13 +134,12 @@ static NSParagraphStyle *paragraphStyle;
                                                                                  options:kNilOptions
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
-        
-        
+
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mediaImageView][_usernameAndCaptionLabel][_commentLabel]"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
-        
+
         self.imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
                                                                   attribute:NSLayoutAttributeHeight
                                                                   relatedBy:NSLayoutRelationEqual
@@ -184,6 +207,14 @@ static NSParagraphStyle *paragraphStyle;
     }
 }
 
+#pragma mark - Liking
+
+- (void) likePressed:(UIButton *)sender {
+//    [self.delegate cellDidPressLikeButton:self];
+    NSLog(@"Number of likes: %ld", self.mediaItem.numberOfLikes);
+}
+
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -209,6 +240,8 @@ static NSParagraphStyle *paragraphStyle;
     self.mediaImageView.image = _mediaItem.image;
     self.usernameAndCaptionLabel.attributedText = [self usernameAndCaptionString];
     self.commentLabel.attributedText = [self commentString];
+    self.likeButton.likeButtonState = mediaItem.likeState;
+    self.numberOfLikesLabel.text = [NSString stringWithFormat:@"%ld", mediaItem.numberOfLikes];
 }
 
 #pragma mark - Attributing Strings

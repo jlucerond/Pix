@@ -122,7 +122,6 @@
 - (void) shareButtonPressed {
     MediaTableViewCell *theCell = [[self.tableView visibleCells] firstObject];
     [self cell:theCell didLongPressImageView:theCell.imageView];
-
 }
 
 #pragma mark - Editing the TableView
@@ -156,6 +155,7 @@
 }
 
 #pragma mark - Infinite Scroll
+
 - (void) infiniteScrollIfNecessary {
     // #3
     NSIndexPath *bottomIndexPath = [[self.tableView indexPathsForVisibleRows] lastObject];
@@ -173,14 +173,14 @@
     [self infiniteScrollIfNecessary];
 }
 
-#pragma mark - MediaFullScreenVCDelegate
+#pragma mark - MediaTableViewCellDelegate
 
 - (void) cell:(MediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
     MediaFullScreenViewController *fullScreenVC = [[MediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
 
-- (void)cell:(MediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
+- (void) cell:(MediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
     NSMutableArray *itemsToShare = [NSMutableArray array];
     
     if (cell.mediaItem.image) {
@@ -195,6 +195,18 @@
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityVC animated:YES completion:nil];
     }
+}
+
+- (void) cellDidPressLikeButton:(MediaTableViewCell *)cell {
+    Media *item = cell.mediaItem;
+    
+    [[DataSource sharedInstance] toggleLikeOnMediaItem:item withCompletionHandler:^{
+        if (cell.mediaItem == item){
+            cell.mediaItem = item;
+        }
+    }];
+
+    cell.mediaItem = item;
 }
 
 /*

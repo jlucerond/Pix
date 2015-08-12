@@ -60,7 +60,7 @@
     }
 }
 
-- (void) requestOldItemsWithCompletionHandler: (NewItemCompletionBlock) completionHandler{
+- (void) requestOldItemsWithCompletionHandler: (NewItemCompletionBlock) completionHandler {
     if (self.isLoadingOlderItems == FALSE && self.thereAreNoMoreOlderMessages == FALSE){
         self.isLoadingOlderItems = TRUE;
         
@@ -84,7 +84,59 @@
     return @"b6252ae8899f46729a82ecab577ab72e";
 }
 
+#pragma mark - Liking Media Items
+
+- (void) toggleLikeOnMediaItem:(Media *)mediaItem withCompletionHandler:(void (^)(void))completionHandler {
+    NSString *urlString = [NSString stringWithFormat:@"media/%@/likes", mediaItem.idNumber];
+    NSDictionary *parameters = @{@"access_token": self.accessToken};
+    
+    if (mediaItem.likeState == LikeStateNotLiked) {
+        mediaItem.likeState = LikeStateLiking;
+        
+        [self.instagramOperationManager
+         POST:urlString
+         parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             mediaItem.likeState = LikeStateLiked;
+             
+             if (completionHandler) {
+                 completionHandler();
+             }
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             mediaItem.likeState = LikeStateNotLiked;
+             
+             if (completionHandler) {
+                 completionHandler();
+             }
+         }];
+    }
+    
+    else if (mediaItem.likeState == LikeStateLiked) {
+        mediaItem.likeState = LikeStateUnliking;
+        
+        [self.instagramOperationManager
+         DELETE:urlString
+         parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             mediaItem.likeState = LikeStateNotLiked;
+             
+             if (completionHandler) {
+                 completionHandler();
+             }
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             mediaItem.likeState = LikeStateLiked;
+             
+             if (completionHandler) {
+                 completionHandler();
+             }
+         }];
+    }
+}
+
 #pragma mark - Load/Initialize/Layout
+
 + (instancetype) sharedInstance {
     static dispatch_once_t once;
     static id sharedInstance;
@@ -124,8 +176,8 @@
             });
         }
     }
-        //  ISSUE- THIS BREAKS THE APP WHEN THERE'S NEW STUFF TO LOAD (BUT NOT WHEN THERE ISN'T)
-        [self requestNewItemsWithCompletionHandler:nil];
+//        //  ISSUE- THIS BREAKS THE APP WHEN THERE'S NEW STUFF TO LOAD (BUT NOT WHEN THERE ISN'T)
+//        [self requestNewItemsWithCompletionHandler:nil];
 
     return self;
 }
