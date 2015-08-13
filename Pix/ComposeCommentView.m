@@ -122,7 +122,12 @@
     if (self.isWritingComment) {
         [self.textView resignFirstResponder];
         self.textView.userInteractionEnabled = NO;
-        [self.delegate commentViewDidPressCommentbutton:self];
+        if (self.textView.text.length>0){
+            [self.delegate commentViewDidPressCommentbutton:self];
+        }
+        else {
+            self.textView.userInteractionEnabled = YES;
+        }
     }
     else{
         [self setIsWritingComment:YES animated:YES];
