@@ -212,18 +212,18 @@
                         [self willChangeValueForKey:@"mediaItems"];
                         self.mediaItems = mutableMediaItems;
                         [self didChangeValueForKey:@"mediaItems"];
-                    }
-                    
-                    else {
+                        
+                        // Mark: -test this line
+                        
+                        // if app breaks, be careful of this line- supposed to check for new media when loading
+                        [self requestNewItemsWithCompletionHandler:nil];
+                    } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
                     }
                 });
             });
         }
     }
-//        //  ISSUE- THIS BREAKS THE APP WHEN THERE'S NEW STUFF TO LOAD (BUT NOT WHEN THERE ISN'T)
-//        [self requestNewItemsWithCompletionHandler:nil];
-
     return self;
 }
 

@@ -14,8 +14,9 @@
 #import "MediaTableViewCell.h"
 #import "MediaFullScreenViewController.h"
 #import "CameraViewController.h"
+#import "ImageLibraryCollectionViewController.h"
 
-@interface ImagesTableViewController () <MediaTableViewCellDelegate, CameraViewControllerDelegate>
+@interface ImagesTableViewController () <MediaTableViewCellDelegate, CameraViewControllerDelegate, ImageLibraryCollectionViewControllerDelegate>
 
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
@@ -256,7 +257,7 @@
     [[DataSource sharedInstance] commentOnMediaItem:cell.mediaItem withCommentText:comment];
 }
 
-#pragma mark - CameraViewControllerDelegate & Camera/Image Library Methods
+#pragma mark - Camera, CameraViewController, & ImageLibraryCollectionViewControllerDelegate
 
 - (void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {
     [cameraViewController dismissViewControllerAnimated:YES completion:^{
@@ -269,11 +270,37 @@
 }
 
 - (void) cameraPressed:(UIBarButtonItem *) sender {
-    CameraViewController *cameraVC = [[CameraViewController alloc] init];
-    cameraVC.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
-    [self presentViewController:nav animated:YES completion:nil];
+        UIViewController *imageVC;
+    
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                CameraViewController *cameraVC = [[CameraViewController alloc] init];
+                cameraVC.delegate = self;
+                imageVC = cameraVC;
+            }
+    
+        else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+                    ImageLibraryCollectionViewController *imageLibraryVC = [[ImageLibraryCollectionViewController alloc] init];
+                    imageLibraryVC.delegate = self;
+                    imageVC = imageLibraryVC;
+                }
+    
+        if (imageVC) {
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+    
     return;
+}
+
+- (void) imageLibraryViewController:(ImageLibraryCollectionViewController *)imageLibraryCollectionViewController didCompleteWithImage:(UIImage *)image {
+    [imageLibraryCollectionViewController dismissViewControllerAnimated:YES completion:^{
+        if (image){
+            NSLog(@"got an image!");
+        }
+        else{
+            NSLog(@"closed without an image!");
+        }
+    }];
 }
 
 #pragma mark - Keyboard Handling
