@@ -15,6 +15,7 @@
 #import "MediaFullScreenViewController.h"
 #import "CameraViewController.h"
 #import "ImageLibraryCollectionViewController.h"
+#import "PostToInstagramViewController.h"
 
 @interface ImagesTableViewController () <MediaTableViewCellDelegate, CameraViewControllerDelegate, ImageLibraryCollectionViewControllerDelegate>
 
@@ -88,7 +89,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [MediaTableViewCell heightForMediaItem:[self items][indexPath.row] width:CGRectGetWidth(self.view.frame)];
+    return [MediaTableViewCell heightForMediaItem:[self items][indexPath.row] width:CGRectGetWidth(self.view.frame) traitCollection:self.view.traitCollection];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,6 +218,16 @@
 
 - (void) cell:(MediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
     MediaFullScreenViewController *fullScreenVC = [[MediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
+    
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        fullScreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    
+    else {
+        fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    }
+    
+    
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
 
@@ -259,48 +270,50 @@
 
 #pragma mark - Camera, CameraViewController, & ImageLibraryCollectionViewControllerDelegate
 
+- (void) handleImage: (UIImage *)image withNavigationController:(UINavigationController *)nav {
+    if (image) {
+        PostToInstagramViewController *postVC = [[PostToInstagramViewController alloc] initWithImage:image];
+        [nav pushViewController:postVC animated:YES];
+    }
+    
+    else {
+        [nav dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {
-    [cameraViewController dismissViewControllerAnimated:YES completion:^{
-        if (image) {
-            NSLog(@"Got an image!");
-        } else {
-            NSLog(@"Closed without an image.");
-        }
-    }];
+    [self handleImage:image withNavigationController:cameraViewController.navigationController];
 }
 
 - (void) cameraPressed:(UIBarButtonItem *) sender {
-        UIViewController *imageVC;
+    UIViewController *imageVC;
     
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                CameraViewController *cameraVC = [[CameraViewController alloc] init];
-                cameraVC.delegate = self;
-                imageVC = cameraVC;
-            }
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        CameraViewController *cameraVC = [[CameraViewController alloc] init];
+        cameraVC.delegate = self;
+        imageVC = cameraVC;
+    }
     
-        else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-                    ImageLibraryCollectionViewController *imageLibraryVC = [[ImageLibraryCollectionViewController alloc] init];
-                    imageLibraryVC.delegate = self;
-                    imageVC = imageLibraryVC;
-                }
+    else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+        ImageLibraryCollectionViewController *imageLibraryVC = [[ImageLibraryCollectionViewController alloc] init];
+        imageLibraryVC.delegate = self;
+        imageVC = imageLibraryVC;
+    }
     
-        if (imageVC) {
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
-                [self presentViewController:nav animated:YES completion:nil];
-            }
+    if (imageVC) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+        nav.modalPresentationStyle = UIModalPresentationPopover;
+        UIPopoverPresentationController *popoverController = nav.popoverPresentationController;
+        popoverController.barButtonItem = sender;
+        
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     
     return;
 }
 
 - (void) imageLibraryViewController:(ImageLibraryCollectionViewController *)imageLibraryCollectionViewController didCompleteWithImage:(UIImage *)image {
-    [imageLibraryCollectionViewController dismissViewControllerAnimated:YES completion:^{
-        if (image){
-            NSLog(@"got an image!");
-        }
-        else{
-            NSLog(@"closed without an image!");
-        }
-    }];
+    [self handleImage:image withNavigationController:imageLibraryCollectionViewController.navigationController];
 }
 
 #pragma mark - Keyboard Handling
