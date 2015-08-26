@@ -10,6 +10,7 @@
 #import "CropBox.h"
 #import "Media.h"
 #import "UIImage+ImageUtilities.h"
+#import <Google/Analytics.h>
 
 @interface CropImageViewController ()
 
@@ -86,6 +87,12 @@
     scrollViewCrop = [scrollViewCrop imageCroppedToRect:visibleRect];
     
     [self.delegate cropControllerFinishedWithImage:scrollViewCrop];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"CropImageViewController"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 @end

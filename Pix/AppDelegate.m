@@ -10,6 +10,10 @@
 #import "ImagesTableViewController.h"
 #import "LoginViewController.h"
 #import "DataSource.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Google/Analytics.h>
+
 
 @interface AppDelegate ()
 
@@ -43,6 +47,19 @@
     self.window.rootViewController = navVC;
     
     [self.window makeKeyAndVisible];
+    
+    [Fabric with:@[CrashlyticsKit]];
+
+    // Configure tracker from GoogleService-Info.plist.
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    
+    // Optional: configure GAI options.
+    GAI *gai = [GAI sharedInstance];
+    gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
+    gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
+    
     return YES;
 }
 

@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		B5FA7E4BC4E303A399C076DC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E267C16EB418488653AD8292 /* libPods.a */; };
+		D832F8531B8D4A98009F5A6D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D832F8521B8D4A98009F5A6D /* GoogleService-Info.plist */; };
+		D832F85E1B8E05C4009F5A6D /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8541B8E05C4009F5A6D /* 1.jpg */; };
+		D832F85F1B8E05C4009F5A6D /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8551B8E05C4009F5A6D /* 2.jpg */; };
+		D832F8601B8E05C4009F5A6D /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8561B8E05C4009F5A6D /* 3.jpg */; };
+		D832F8611B8E05C4009F5A6D /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8571B8E05C4009F5A6D /* 4.jpg */; };
+		D832F8621B8E05C4009F5A6D /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8581B8E05C4009F5A6D /* 5.jpg */; };
+		D832F8631B8E05C4009F5A6D /* 6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F8591B8E05C4009F5A6D /* 6.jpg */; };
+		D832F8641B8E05C4009F5A6D /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F85A1B8E05C4009F5A6D /* 7.jpg */; };
+		D832F8651B8E05C4009F5A6D /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F85B1B8E05C4009F5A6D /* 8.jpg */; };
+		D832F8661B8E05C4009F5A6D /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F85C1B8E05C4009F5A6D /* 9.jpg */; };
+		D832F8671B8E05C4009F5A6D /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D832F85D1B8E05C4009F5A6D /* 10.jpg */; };
 		D85F50A81B710AC200D42E5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D85F50A71B710AC200D42E5D /* main.m */; };
 		D85F50AB1B710AC200D42E5D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D85F50AA1B710AC200D42E5D /* AppDelegate.m */; };
 		D85F50B31B710AC200D42E5D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85F50B21B710AC200D42E5D /* Images.xcassets */; };
@@ -49,6 +60,17 @@
 /* Begin PBXFileReference section */
 		2668EF4A11BC7ED84AA6A923 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		68B1E2AF0288AD231FA4A0A0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D832F8521B8D4A98009F5A6D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D832F8541B8E05C4009F5A6D /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpg; path = PixTests/1.jpg; sourceTree = SOURCE_ROOT; };
+		D832F8551B8E05C4009F5A6D /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 2.jpg; path = PixTests/2.jpg; sourceTree = SOURCE_ROOT; };
+		D832F8561B8E05C4009F5A6D /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3.jpg; path = PixTests/3.jpg; sourceTree = SOURCE_ROOT; };
+		D832F8571B8E05C4009F5A6D /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 4.jpg; path = PixTests/4.jpg; sourceTree = SOURCE_ROOT; };
+		D832F8581B8E05C4009F5A6D /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 5.jpg; path = PixTests/5.jpg; sourceTree = SOURCE_ROOT; };
+		D832F8591B8E05C4009F5A6D /* 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 6.jpg; path = PixTests/6.jpg; sourceTree = SOURCE_ROOT; };
+		D832F85A1B8E05C4009F5A6D /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 7.jpg; path = PixTests/7.jpg; sourceTree = SOURCE_ROOT; };
+		D832F85B1B8E05C4009F5A6D /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 8.jpg; path = PixTests/8.jpg; sourceTree = SOURCE_ROOT; };
+		D832F85C1B8E05C4009F5A6D /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 9.jpg; path = PixTests/9.jpg; sourceTree = SOURCE_ROOT; };
+		D832F85D1B8E05C4009F5A6D /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 10.jpg; path = PixTests/10.jpg; sourceTree = SOURCE_ROOT; };
 		D85F50A21B710AC200D42E5D /* Pix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85F50A61B710AC200D42E5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D85F50A71B710AC200D42E5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -164,6 +186,16 @@
 				D85F50AA1B710AC200D42E5D /* AppDelegate.m */,
 				D85F50B21B710AC200D42E5D /* Images.xcassets */,
 				D85F50B41B710AC200D42E5D /* LaunchScreen.xib */,
+				D832F8541B8E05C4009F5A6D /* 1.jpg */,
+				D832F8551B8E05C4009F5A6D /* 2.jpg */,
+				D832F8561B8E05C4009F5A6D /* 3.jpg */,
+				D832F8571B8E05C4009F5A6D /* 4.jpg */,
+				D832F8581B8E05C4009F5A6D /* 5.jpg */,
+				D832F8591B8E05C4009F5A6D /* 6.jpg */,
+				D832F85A1B8E05C4009F5A6D /* 7.jpg */,
+				D832F85B1B8E05C4009F5A6D /* 8.jpg */,
+				D832F85C1B8E05C4009F5A6D /* 9.jpg */,
+				D832F85D1B8E05C4009F5A6D /* 10.jpg */,
 				D85F50D21B71137500D42E5D /* Model */,
 				D85F50DF1B713EDE00D42E5D /* View */,
 				D85F50CE1B71135800D42E5D /* Controllers */,
@@ -176,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				D85F50A61B710AC200D42E5D /* Info.plist */,
+				D832F8521B8D4A98009F5A6D /* GoogleService-Info.plist */,
 				D85F50A71B710AC200D42E5D /* main.m */,
 				D8B29E8C1B7CF296007B7FA6 /* UIImage+ImageUtilities.h */,
 				D8B29E8D1B7CF296007B7FA6 /* UIImage+ImageUtilities.m */,
@@ -270,6 +303,7 @@
 				D85F509F1B710AC200D42E5D /* Frameworks */,
 				D85F50A01B710AC200D42E5D /* Resources */,
 				9C751C9FD06FB3576A983484 /* Copy Pods Resources */,
+				D832F8511B8CF843009F5A6D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -342,6 +376,7 @@
 			files = (
 				D85F50B61B710AC200D42E5D /* LaunchScreen.xib in Resources */,
 				D85F50B31B710AC200D42E5D /* Images.xcassets in Resources */,
+				D832F8531B8D4A98009F5A6D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +384,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D832F8671B8E05C4009F5A6D /* 10.jpg in Resources */,
+				D832F8661B8E05C4009F5A6D /* 9.jpg in Resources */,
+				D832F8631B8E05C4009F5A6D /* 6.jpg in Resources */,
+				D832F8611B8E05C4009F5A6D /* 4.jpg in Resources */,
+				D832F8621B8E05C4009F5A6D /* 5.jpg in Resources */,
+				D832F8641B8E05C4009F5A6D /* 7.jpg in Resources */,
+				D832F8651B8E05C4009F5A6D /* 8.jpg in Resources */,
+				D832F8601B8E05C4009F5A6D /* 3.jpg in Resources */,
+				D832F85F1B8E05C4009F5A6D /* 2.jpg in Resources */,
+				D832F85E1B8E05C4009F5A6D /* 1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +414,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D832F8511B8CF843009F5A6D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 2cd1416a03537ea0b0cc738318e9d3a2b8811245 4cea5a9b606b3ec1293e3c4f64275b3fdd1ee68db1c16485164f9c8dcf9d2cdc";
 		};
 		E2301E6754903F649E603940 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

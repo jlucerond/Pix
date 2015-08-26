@@ -11,6 +11,7 @@
 #import "Media.h"
 #import "Comment.h"
 #import "User.h"
+#import "MediaTableViewCell.h"
 
 @interface MediaTests : XCTestCase
 
@@ -41,30 +42,51 @@
     }
 }
 
+- (void) testThatSizesWork {
+    UIImage *myImage = [UIImage imageNamed:@"1"];
+    XCTAssertTrue(myImage != nil);
+    
+    // create a media item
+    NSArray *myArray = [self addRandomData];
+    // run height for media item
+    for (Media *item in myArray){
+        CGFloat myFloatWith500 = [MediaTableViewCell heightForMediaItem:item width:500 traitCollection:nil];
+        NSLog(@"%f", myFloatWith500);
+        
+        CGFloat myFloatWith200 = [MediaTableViewCell heightForMediaItem:item width:200 traitCollection:nil];
+        NSLog(@"%f", myFloatWith200);
+        
+        XCTAssertTrue(myFloatWith500 < myFloatWith200);
+    }
+    
+    // check to make sure the height is correct
+}
+
 # pragma  mark - creates random data for testing purposes
 - (NSArray *) addRandomData {
     NSMutableArray *randomMediaItems = [NSMutableArray array];
-
+    
     for (int i = 1; i <= 10; i++) {
-
-            Media *media = [[Media alloc] init];
-            media.user = [self randomUser];
-            media.caption = [self randomSentence];
-
-            NSUInteger commentCount = arc4random_uniform(10) + 2;
-            NSMutableArray *randomComments = [NSMutableArray array];
-
-            for (int i  = 0; i <= commentCount; i++) {
-                Comment *randomComment = [self randomComment];
-
-                [randomComments addObject:randomComment];
-            }
-
-            media.comments = randomComments;
-
-            [randomMediaItems addObject:media];
+        
+        Media *media = [[Media alloc] init];
+        media.user = [self randomUser];
+        media.caption = [self randomSentence];
+        media.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i", i]];
+        
+        NSUInteger commentCount = arc4random_uniform(10) + 2;
+        NSMutableArray *randomComments = [NSMutableArray array];
+        
+        for (int i  = 0; i <= commentCount; i++) {
+            Comment *randomComment = [self randomComment];
+            
+            [randomComments addObject:randomComment];
+        }
+        
+        media.comments = randomComments;
+        
+        [randomMediaItems addObject:media];
     }
-
+    
     return randomMediaItems;
 }
 
